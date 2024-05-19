@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.Contrato;
+package com.patob.inmobiliariaapp.ui.contrato;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,33 +12,33 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.patob.inmobiliariaapp.databinding.FragmentListaBinding;
+import com.patob.inmobiliariaapp.databinding.FragmentListaContratosBinding;
+import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.ui.inmueble.InmuebleAdapter;
-import com.patob.inmobiliariaapp.ui.inmueble.ListaFragmentViewModel;
 
 import java.util.List;
 
 public class ListaContratoFragment extends Fragment {
 
-    private FragmentListaBinding binding;
-    private ListaFragmentViewModel vm;
+    private FragmentListaContratosBinding binding;
+    private ListaContratoFragmentViewModel vm;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentListaBinding.inflate(inflater, container, false);
+        binding = FragmentListaContratosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(ListaFragmentViewModel.class);
+        vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(ListaContratoFragmentViewModel.class);
         vm.getMInmuebles().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> inmueble) {
-                InmuebleAdapter inmuebleAdapter = new InmuebleAdapter(inmueble, getLayoutInflater());
+                ContratoAdapter contratoAdapter = new ContratoAdapter(inmueble, getLayoutInflater());
                 GridLayoutManager glm = new GridLayoutManager(container.getContext(), 1, GridLayoutManager.VERTICAL, false);
-                RecyclerView rv = binding.listaDeInmuebles;
+                RecyclerView rv = binding.listaDeContratos;
                 rv.setLayoutManager(glm);
-                rv.setAdapter(inmuebleAdapter);
+                rv.setAdapter(contratoAdapter);
             }
         });
-        vm.cargarInmuebles();
+        vm.cargarContratos();
         return root;
     }
 

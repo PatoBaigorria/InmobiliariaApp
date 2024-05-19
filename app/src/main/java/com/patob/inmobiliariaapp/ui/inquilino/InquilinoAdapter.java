@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.contrato;
+/*package com.patob.inmobiliariaapp.ui.inquilino;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.patob.inmobiliariaapp.R;
-import com.patob.inmobiliariaapp.model.Contrato;
-import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.Inquilino;
 import com.patob.inmobiliariaapp.request.ApiClient;
 
 import java.util.List;
@@ -23,26 +22,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHolderPepe> {
-    private List<Inmueble> listaDeContratos;
+public class InquilinoAdapter extends RecyclerView.Adapter<InquilinoAdapter.ViewHolderPepe> {
+    private List<Inquilino> listaDeInquilinos;
     private LayoutInflater li;
-    public ContratoAdapter(List<Inmueble> listaDeContratos, LayoutInflater li) {
-        this.listaDeContratos = listaDeContratos;
+    public InquilinoAdapter(List<Inquilino> listaDeInquilinos, LayoutInflater li) {
+        this.listaDeInquilinos = listaDeInquilinos;
         this.li = li;
     }
 
     @NonNull
     @Override
     public ViewHolderPepe onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = li.inflate(R.layout.item_contrato, parent, false);
+        View view = li.inflate(R.layout.item_inquilino, parent, false);
         return new ViewHolderPepe(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
-        Inmueble inmueble = listaDeContratos.get(position);
-        holder.direccion.setText(inmueble.getDireccion());
-       
+        Inquilino inquilino = listaDeInquilinos.get(position);
+        holder.direccion.setText(contrato.inquilino.inmueble.getDireccion());
         //holder.foto.setImageResource(inmueble.getImagenInmueble());
         holder.btnVerMas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,19 +48,19 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
                 Bundle bundle = new Bundle();
                 String token = ApiClient.leerToken(li.getContext());
                 ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-                Call<Contrato> call = api.obtenerContrato(token, inmueble.getId());
-                call.enqueue(new Callback<Contrato>() {
+                Call<Inquilino> call = api.obtenerInquilino(token, inquilino.getId());
+                call.enqueue(new Callback<Inquilino>() {
                     @Override
-                    public void onResponse(Call<Contrato> call, Response<Contrato> response) {
+                    public void onResponse(Call<Inquilino> call, Response<Inquilino> response) {
                         if(response.isSuccessful()){
-                            bundle.putSerializable("inmueble", response.body());
-                            Navigation.findNavController(v).navigate(R.id.nav_inmueble, bundle);
+                            bundle.putSerializable("inquilino", response.body());
+                            Navigation.findNavController(v).navigate(R.id.nav_inquilino, bundle);
                         } else {
                             Log.d("salida", response.message());
                         }
                     }
                     @Override
-                    public void onFailure(Call<Contrato> call, Throwable throwable) {
+                    public void onFailure(Call<Inquilino> call, Throwable throwable) {
                         Log.d("salida", "Falla: " + throwable.getMessage());
                     }
                 });
@@ -72,7 +70,7 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return listaDeContratos.size();
+        return listaDeInquilinos.size();
     }
 
     public class ViewHolderPepe extends RecyclerView.ViewHolder {
@@ -87,4 +85,4 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
             btnVerMas = itemView.findViewById(R.id.btnVerMas);
         }
     }
-}
+}*/

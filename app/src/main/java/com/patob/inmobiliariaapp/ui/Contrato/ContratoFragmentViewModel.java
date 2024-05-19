@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.Contrato;
+package com.patob.inmobiliariaapp.ui.contrato;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -8,24 +8,24 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.Contrato;
 
 public class ContratoFragmentViewModel extends AndroidViewModel {
-    private MutableLiveData<Inmueble> mInmueble;
+    private MutableLiveData<Contrato> mContrato;
     public ContratoFragmentViewModel(@NonNull Application application) {
         super(application);
     }
-    public LiveData<Inmueble> getMFarmacia() {
-        if(mInmueble == null){
-            mInmueble = new MutableLiveData<>();
+    public LiveData<Contrato> getMContrato() {
+        if(mContrato == null){
+            mContrato = new MutableLiveData<>();
         }
-        return mInmueble;
+        return mContrato;
     }
-    public void cargarInmueble(Bundle arguments) {
+    public void cargarContrato(Bundle arguments) {
         if (arguments != null) {
-            Inmueble inmueble = (Inmueble) arguments.getSerializable("inmueble");
-            if (inmueble != null) {
-                mInmueble.setValue(inmueble);
+            Contrato contrato = (Contrato) arguments.getSerializable("contrato");
+            if (contrato != null) {
+                mContrato.setValue(contrato);
             }
         }
     }

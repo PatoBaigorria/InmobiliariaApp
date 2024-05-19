@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.contrato;
+package com.patob.inmobiliariaapp.ui.inquilino;/*package com.patob.inmobiliariaapp.ui.Contrato;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ public class ContratoFragment extends Fragment {
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         vm = new ViewModelProvider(this).get(InmuebleFragmentViewModel.class);
-        vm.getMInmueble().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
+        vm.getMFarmacia().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
             String t;
             @Override
             public void onChanged(Inmueble farmacia) {
@@ -44,4 +44,4 @@ public class ContratoFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-}
+}*/

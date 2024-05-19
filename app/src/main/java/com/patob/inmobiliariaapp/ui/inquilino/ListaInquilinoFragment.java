@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.inmueble;
+package com.patob.inmobiliariaapp.ui.inquilino;/*package com.patob.inmobiliariaapp.ui.Contrato;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.databinding.FragmentListaBinding;
 import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.ui.inmueble.InmuebleAdapter;
+import com.patob.inmobiliariaapp.ui.inmueble.ListaFragmentViewModel;
 
 import java.util.List;
 
-public class ListaFragment extends Fragment {
+public class ListaContratoFragment extends Fragment {
 
     private FragmentListaBinding binding;
     private ListaFragmentViewModel vm;
@@ -38,13 +38,6 @@ public class ListaFragment extends Fragment {
                 rv.setAdapter(inmuebleAdapter);
             }
         });
-        // Configurar evento de clic para el botón
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_listaFragment_to_inmuebleFragment);
-            }
-        });
         vm.cargarInmuebles();
         return root;
     }
@@ -54,4 +47,4 @@ public class ListaFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-}
+}*/

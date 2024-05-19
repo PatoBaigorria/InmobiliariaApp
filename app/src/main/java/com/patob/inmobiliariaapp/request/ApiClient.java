@@ -2,10 +2,13 @@ package com.patob.inmobiliariaapp.request;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.model.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.patob.inmobiliariaapp.model.Tipo;
+import com.patob.inmobiliariaapp.model.Uso;
 
 import java.util.List;
 
@@ -46,15 +49,39 @@ public class ApiClient {
         @PUT("Propietarios")
         Call<Propietario> modificarUsuario(@Header("Authorization") String token, @Body Propietario propietario);
 
-        @FormUrlEncoded
-        @POST("Propietarios/olvidecontraseña")
-        Call<String> olvidePassword(@Field("email") String email);
+        @POST("Propietarios/olvidecontraseña/{email}")
+        Call<String> enviarEmail(@Path("email") String email);
 
         @GET("Inmuebles")
         Call<List<Inmueble>> obtenerInmuebles(@Header("Authorization") String token);
 
         @GET("Inmuebles/{id}")
         Call<Inmueble> obtenerInmueble(@Header("Authorization") String token, @Path("id") int id);
+
+        @POST("Inmuebles")
+        Call<Inmueble> agregarInmueble(@Header("Authorization") String token,  @Body Inmueble inmueble);
+
+        @PUT("Inmuebles/cambiologico/{id}")
+        Call<Void> inmuebleDisponible(@Header("Authorization") String token, @Path("id") int id);
+
+        @GET("Contratos")
+        Call<List<Contrato>> obtenerContratos(@Header("Authoization") String token);
+
+        @GET("Contrato/{id}")
+        Call<Contrato> obtenerContrato(@Header("Authoization") String token, @Path("id") int id);
+
+        @GET("Tipos")
+        Call<List<Tipo>> obtenerTipos(@Header("Authorization") String token);
+
+        @GET("Usos")
+        Call<List<Uso>> obtenerUsos(@Header("Authorization") String token);
+
+        @GET("Tipos/{id}")
+        Call<Tipo> obtenerTipo(@Header("Authorization") String token, @Path("id") int id);
+
+        @GET("Usos/{id}")
+        Call<Uso> obtenerUso(@Header("Authorization") String token, @Path("id") int id);
+
     }
 
     public static void guardarToken(String token, Context context) {
