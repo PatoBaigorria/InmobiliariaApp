@@ -42,12 +42,12 @@
 
     <fragment
         android:id="@+id/nav_contrato"
-        android:name="com.patob.inmobiliariaapp.ui.inmueble.InmuebleFragment"
+        android:name="com.patob.inmobiliariaapp.ui.contrato.ContratoFragment"
         android:label="Detalle del Contrato"
         tools:layout="@layout/fragment_contrato" />
     <fragment
         android:id="@+id/nav_lista_contratos"
-        android:name="com.patob.inmobiliariaapp.ui.inmueble.ListaFragment"
+        android:name="com.patob.inmobiliariaapp.ui.contrato.ListaContratoFragment"
         android:label="Contratos"
         tools:layout="@layout/fragment_lista_contratos" >
         <action

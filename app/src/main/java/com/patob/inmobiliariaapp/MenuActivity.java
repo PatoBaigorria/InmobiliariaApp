@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.menu;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_mapa, R.id.nav_salir, R.id.nav_perfil)
+                R.id.nav_mapa, R.id.nav_salir, R.id.nav_perfil, R.id.nav_contrato)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

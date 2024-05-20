@@ -64,10 +64,7 @@ public class ApiClient {
         @PUT("Inmuebles/cambiologico/{id}")
         Call<Void> inmuebleDisponible(@Header("Authorization") String token, @Path("id") int id);
 
-        @GET("Contratos")
-        Call<List<Contrato>> obtenerContratos(@Header("Authoization") String token);
-
-        @GET("Contrato/{id}")
+        @GET("Contratos/{id}")
         Call<Contrato> obtenerContrato(@Header("Authoization") String token, @Path("id") int id);
 
         @GET("Tipos")

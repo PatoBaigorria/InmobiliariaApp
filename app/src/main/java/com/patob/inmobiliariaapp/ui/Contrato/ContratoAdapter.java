@@ -42,7 +42,7 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
         Inmueble inmueble = listaDeContratos.get(position);
         holder.direccion.setText(inmueble.getDireccion());
-       
+
         //holder.foto.setImageResource(inmueble.getImagenInmueble());
         holder.btnVerMas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +55,8 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
                     @Override
                     public void onResponse(Call<Contrato> call, Response<Contrato> response) {
                         if(response.isSuccessful()){
-                            bundle.putSerializable("inmueble", response.body());
-                            Navigation.findNavController(v).navigate(R.id.nav_inmueble, bundle);
+                            bundle.putSerializable("contrato", response.body());
+                            Navigation.findNavController(v).navigate(R.id.nav_contrato, bundle);
                         } else {
                             Log.d("salida", response.message());
                         }
@@ -77,12 +77,10 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
 
     public class ViewHolderPepe extends RecyclerView.ViewHolder {
         TextView direccion;
-        //ImageView foto;
         Button btnVerMas;
 
         public ViewHolderPepe(@NonNull View itemView) {
             super(itemView);
-            //foto = itemView.findViewById(R.id.ivImagenInm);
             direccion = itemView.findViewById(R.id.tvDireccionCont);
             btnVerMas = itemView.findViewById(R.id.btnVerMas);
         }

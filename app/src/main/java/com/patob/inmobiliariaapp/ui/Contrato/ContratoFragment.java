@@ -10,32 +10,31 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.patob.inmobiliariaapp.databinding.FragmentInmuebleBinding;
-import com.patob.inmobiliariaapp.model.Inmueble;
-import com.patob.inmobiliariaapp.ui.inmueble.InmuebleFragmentViewModel;
+import com.patob.inmobiliariaapp.databinding.FragmentContratoBinding;
+import com.patob.inmobiliariaapp.model.Contrato;
 
 public class ContratoFragment extends Fragment {
-    private FragmentInmuebleBinding binding;
-    private InmuebleFragmentViewModel vm;
+    private FragmentContratoBinding binding;
+    private ContratoFragmentViewModel vm;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentInmuebleBinding.inflate(inflater, container, false);
+        binding = FragmentContratoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        vm = new ViewModelProvider(this).get(InmuebleFragmentViewModel.class);
-        vm.getMInmueble().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
-            String t;
+        vm = new ViewModelProvider(this).get(ContratoFragmentViewModel.class);
+        vm.getMContrato().observe(getViewLifecycleOwner(), new Observer<Contrato>() {
+
             @Override
-            public void onChanged(Inmueble farmacia) {
-                //binding.tvNombre.setText(farmacia.getNombre());
-                //binding.ivFoto.setImageResource(farmacia.getFoto());
-                t = binding.tvDireccion.getText().toString() + " " + farmacia.getDireccion();
-                binding.tvDireccion.setText(t);
-                //t = binding.tvHorario.getText().toString() + " " + farmacia.getHorario();
-                //binding.tvHorario.setText(t);
+            public void onChanged(Contrato contrato) {
+                binding.tvCodigoContrato.setText(String.valueOf(contrato.getId()));
+                binding.tvFechaIni.setText(contrato.getFechaInicio().toString());
+                binding.tvFechaFin.setText(contrato.getFechaFin().toString());
+                binding.tvMonto.setText(String.valueOf(contrato.getPrecio()));
+                binding.tvInmueb.setText(String.valueOf(contrato.getInmuebleId()));
+                binding.tvInquilino.setText(String.valueOf(contrato.getInquilinoId()));
             }
         });
-        vm.cargarInmueble(getArguments());
+        vm.cargarContrato(getArguments());
         return root;
     }
 
