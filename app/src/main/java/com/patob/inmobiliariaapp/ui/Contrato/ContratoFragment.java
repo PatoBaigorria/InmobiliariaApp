@@ -30,8 +30,9 @@ public class ContratoFragment extends Fragment {
                 binding.tvFechaIni.setText(contrato.getFechaInicio().toString());
                 binding.tvFechaFin.setText(contrato.getFechaFin().toString());
                 binding.tvMonto.setText(String.valueOf(contrato.getPrecio()));
-                binding.tvInmueb.setText(String.valueOf(contrato.getInmuebleId()));
-                binding.tvInquilino.setText(String.valueOf(contrato.getInquilinoId()));
+                binding.tvInquilino.setText((contrato.getInquilino().toString()));
+                binding.tvInmueb.setText((contrato.getInmueble().toString()));
+
             }
         });
         vm.cargarContrato(getArguments());

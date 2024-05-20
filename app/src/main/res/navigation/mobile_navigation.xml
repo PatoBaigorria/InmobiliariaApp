@@ -28,16 +28,16 @@
 
     <fragment
         android:id="@+id/nav_inquilino"
-        android:name="com.patob.inmobiliariaapp.ui.inmueble.InmuebleFragment"
+        android:name="com.patob.inmobiliariaapp.ui.inquilino.InquilinoFragment"
         android:label="Detalle del Inquilino"
         tools:layout="@layout/fragment_inquilino" />
     <fragment
         android:id="@+id/nav_lista_inquilinos"
-        android:name="com.patob.inmobiliariaapp.ui.inmueble.ListaFragment"
+        android:name="com.patob.inmobiliariaapp.ui.inquilino.ListaInquilinoFragment"
         android:label="Inquilinos"
         tools:layout="@layout/fragment_lista_inquilinos" />
         <action
-            android:id="@+id/action_listaInquilinoFragment_to_inquilinoFragment"
+            android:id="@+id/action_nav_lista_contratos_to_nav_inquilino"
             app:destination="@id/nav_inquilino" />
 
     <fragment
@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_listaContratoFragment_to_contratoFragment"
             app:destination="@id/nav_contrato" />
+        <action
+            android:id="@+id/action_nav_lista_contratos_to_nav_inquilino"
+            app:destination="@id/nav_inquilino" />
     </fragment>
 
     <fragment

@@ -143,4 +143,8 @@ public class Inmueble implements Serializable {
     public void setUso(Uso uso) {
         this.uso = uso;
     }
+    @Override
+    public String toString() {
+        return direccion;
+    }
 }

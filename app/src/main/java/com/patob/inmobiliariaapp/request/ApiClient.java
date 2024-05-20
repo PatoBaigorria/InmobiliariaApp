@@ -2,14 +2,21 @@ package com.patob.inmobiliariaapp.request;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.Inquilino;
 import com.patob.inmobiliariaapp.model.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.patob.inmobiliariaapp.model.Tipo;
 import com.patob.inmobiliariaapp.model.Uso;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,13 +36,30 @@ public class ApiClient {
     private static MisEndPoints mep;
 
     public static MisEndPoints getEndPoints(){
-        Gson gson = new GsonBuilder().setLenient().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         mep = retrofit.create(MisEndPoints.class);
         return mep;
+    }
+    public static class LocalDateAdapter extends TypeAdapter<LocalDate> {
+        private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+
+        @Override
+        public void write(JsonWriter jsonWriter, LocalDate localDate) throws IOException {
+            jsonWriter.value(localDate.format(formatter));
+        }
+
+        @Override
+        public LocalDate read(JsonReader jsonReader) throws IOException {
+            return LocalDate.parse(jsonReader.nextString(), formatter);
+        }
     }
 
     public interface MisEndPoints {
@@ -65,7 +89,8 @@ public class ApiClient {
         Call<Void> inmuebleDisponible(@Header("Authorization") String token, @Path("id") int id);
 
         @GET("Contratos/{id}")
-        Call<Contrato> obtenerContrato(@Header("Authoization") String token, @Path("id") int id);
+        Call<Contrato> obtenerContrato(@Header("Authorization") String token, @Path("id") int id);
+
 
         @GET("Tipos")
         Call<List<Tipo>> obtenerTipos(@Header("Authorization") String token);

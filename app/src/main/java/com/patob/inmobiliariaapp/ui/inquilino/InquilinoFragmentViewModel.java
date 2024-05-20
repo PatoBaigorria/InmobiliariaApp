@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.inquilino;/*package com.patob.inmobiliariaapp.ui.Contrato;
+package com.patob.inmobiliariaapp.ui.inquilino;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -8,25 +8,26 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.Contrato;
+import com.patob.inmobiliariaapp.model.Inquilino;
 
-public class ContratoFragmentViewModel extends AndroidViewModel {
-    private MutableLiveData<Inmueble> mInmueble;
-    public ContratoFragmentViewModel(@NonNull Application application) {
+public class InquilinoFragmentViewModel extends AndroidViewModel {
+    private MutableLiveData<Inquilino> mInquilino;
+    public InquilinoFragmentViewModel(@NonNull Application application) {
         super(application);
     }
-    public LiveData<Inmueble> getMFarmacia() {
-        if(mInmueble == null){
-            mInmueble = new MutableLiveData<>();
+    public LiveData<Inquilino> getMInquilino() {
+        if(mInquilino == null){
+            mInquilino = new MutableLiveData<>();
         }
-        return mInmueble;
+        return mInquilino;
     }
-    public void cargarInmueble(Bundle arguments) {
+    public void cargarInquilino(Bundle arguments) {
         if (arguments != null) {
-            Inmueble inmueble = (Inmueble) arguments.getSerializable("inmueble");
-            if (inmueble != null) {
-                mInmueble.setValue(inmueble);
+            Inquilino inquilino = (Inquilino) arguments.getSerializable("inquilino");
+            if (inquilino != null) {
+                mInquilino.setValue(inquilino);
             }
         }
     }
-}*/
+}

@@ -1,4 +1,4 @@
-package com.patob.inmobiliariaapp.ui.inquilino;/*package com.patob.inmobiliariaapp.ui.Contrato;
+package com.patob.inmobiliariaapp.ui.inquilino;
 
 import android.app.Application;
 import android.util.Log;
@@ -18,9 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ListaContratoFragmentViewModel extends AndroidViewModel {
+public class ListaInquilinoFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<List<Inmueble>> mInmuebles;
-    public ListaContratoFragmentViewModel(@NonNull Application application) {
+    public ListaInquilinoFragmentViewModel(@NonNull Application application) {
         super(application);
     }
     public LiveData<List<Inmueble>> getMInmuebles(){
@@ -30,7 +30,7 @@ public class ListaContratoFragmentViewModel extends AndroidViewModel {
         return mInmuebles;
     }
 
-    public void cargarInmuebles(){
+    public void cargarInquilinos(){
         ApiClient.MisEndPoints mep = ApiClient.getEndPoints();
         String token = ApiClient.leerToken(getApplication().getApplicationContext());
         Call<List<Inmueble>> call = mep.obtenerInmuebles(token);
@@ -49,4 +49,4 @@ public class ListaContratoFragmentViewModel extends AndroidViewModel {
             }
         });
     }
-}*/
+}

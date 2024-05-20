@@ -90,4 +90,6 @@ public class Contrato implements Serializable {
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
     }
+
+
 }

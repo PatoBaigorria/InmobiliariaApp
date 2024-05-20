@@ -1,4 +1,4 @@
-/*package com.patob.inmobiliariaapp.ui.inquilino;
+package com.patob.inmobiliariaapp.ui.inquilino;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.patob.inmobiliariaapp.R;
+import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inquilino;
+import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.request.ApiClient;
 
 import java.util.List;
@@ -23,9 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InquilinoAdapter extends RecyclerView.Adapter<InquilinoAdapter.ViewHolderPepe> {
-    private List<Inquilino> listaDeInquilinos;
+    private List<Inmueble> listaDeInquilinos;
     private LayoutInflater li;
-    public InquilinoAdapter(List<Inquilino> listaDeInquilinos, LayoutInflater li) {
+    public InquilinoAdapter(List<Inmueble> listaDeInquilinos, LayoutInflater li) {
         this.listaDeInquilinos = listaDeInquilinos;
         this.li = li;
     }
@@ -33,35 +35,34 @@ public class InquilinoAdapter extends RecyclerView.Adapter<InquilinoAdapter.View
     @NonNull
     @Override
     public ViewHolderPepe onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = li.inflate(R.layout.item_inquilino, parent, false);
+        View view = li.inflate(R.layout.item_contrato, parent, false);
         return new ViewHolderPepe(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
-        Inquilino inquilino = listaDeInquilinos.get(position);
-        holder.direccion.setText(contrato.inquilino.inmueble.getDireccion());
-        //holder.foto.setImageResource(inmueble.getImagenInmueble());
+        Inmueble inmueble = listaDeInquilinos.get(position);
+        holder.direccion.setText(inmueble.getDireccion());
+
         holder.btnVerMas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 String token = ApiClient.leerToken(li.getContext());
                 ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-                Call<Inquilino> call = api.obtenerInquilino(token, inquilino.getId());
-                call.enqueue(new Callback<Inquilino>() {
+                Call<Contrato> contratoCall = api.obtenerContrato(token, inmueble.getId());
+                contratoCall.enqueue(new Callback<Contrato>() {
                     @Override
-                    public void onResponse(Call<Inquilino> call, Response<Inquilino> response) {
-                        if(response.isSuccessful()){
-                            bundle.putSerializable("inquilino", response.body());
+                    public void onResponse(Call<Contrato> call, Response<Contrato> response) {
+                        if (response.isSuccessful()) {
+                            bundle.putSerializable("inquilino", response.body().getInquilino());
                             Navigation.findNavController(v).navigate(R.id.nav_inquilino, bundle);
-                        } else {
-                            Log.d("salida", response.message());
                         }
                     }
+
                     @Override
-                    public void onFailure(Call<Inquilino> call, Throwable throwable) {
-                        Log.d("salida", "Falla: " + throwable.getMessage());
+                    public void onFailure(Call<Contrato> call, Throwable throwable) {
+
                     }
                 });
             }
@@ -75,14 +76,12 @@ public class InquilinoAdapter extends RecyclerView.Adapter<InquilinoAdapter.View
 
     public class ViewHolderPepe extends RecyclerView.ViewHolder {
         TextView direccion;
-        //ImageView foto;
         Button btnVerMas;
 
         public ViewHolderPepe(@NonNull View itemView) {
             super(itemView);
-            //foto = itemView.findViewById(R.id.ivImagenInm);
             direccion = itemView.findViewById(R.id.tvDireccionCont);
             btnVerMas = itemView.findViewById(R.id.btnVerMas);
         }
     }
-}*/
+}
