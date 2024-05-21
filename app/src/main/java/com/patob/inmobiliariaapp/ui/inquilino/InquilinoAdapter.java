@@ -71,6 +71,7 @@ public class InquilinoAdapter extends RecyclerView.Adapter<InquilinoAdapter.View
 
     @Override
     public int getItemCount() {
+
         return listaDeInquilinos.size();
     }
 

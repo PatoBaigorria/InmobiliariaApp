@@ -43,7 +43,6 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
         Inmueble inmueble = listaDeContratos.get(position);
         holder.direccion.setText(inmueble.getDireccion());
 
-        //holder.foto.setImageResource(inmueble.getImagenInmueble());
         holder.btnVerMas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +56,6 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
                         if(response.isSuccessful()){
                             bundle.putSerializable("contrato", response.body());
                             Navigation.findNavController(v).navigate(R.id.nav_contrato, bundle);
-                        } else {
-                            Log.d("salida", response.message());
                         }
                     }
                     @Override
