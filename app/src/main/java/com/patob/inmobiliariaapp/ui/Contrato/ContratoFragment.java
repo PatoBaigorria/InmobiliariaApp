@@ -13,6 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.patob.inmobiliariaapp.databinding.FragmentContratoBinding;
 import com.patob.inmobiliariaapp.model.Contrato;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class ContratoFragment extends Fragment {
     private FragmentContratoBinding binding;
     private ContratoFragmentViewModel vm;
@@ -26,9 +30,23 @@ public class ContratoFragment extends Fragment {
 
             @Override
             public void onChanged(Contrato contrato) {
+                // Parsear la fecha recibida a LocalDate
+                LocalDate inicioFecha = LocalDate.parse(contrato.getFechaInicio().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                // Formatear la fecha a "dd 'de' MMMM 'del' yyyy"
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
+                String fechaInicio = inicioFecha.format(formatter);
+
+
+                // Parsear la fecha recibida a LocalDate
+                LocalDate finFecha = LocalDate.parse(contrato.getFechaFin().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                // Formatear la fecha a "dd 'de' MMMM 'del' yyyy"
+                String fechaFin = finFecha.format(formatter);
+
                 binding.tvCodigoContrato.setText(String.valueOf(contrato.getId()));
-                binding.tvFechaIni.setText(contrato.getFechaInicio().toString());
-                binding.tvFechaFin.setText(contrato.getFechaFin().toString());
+                binding.tvFechaIni.setText(fechaInicio);
+                binding.tvFechaFin.setText(fechaFin);
                 binding.tvMonto.setText(String.valueOf(contrato.getPrecio()));
                 binding.tvInquilino.setText((contrato.getInquilino().toString()));
                 binding.tvInmueb.setText((contrato.getInmueble().toString()));

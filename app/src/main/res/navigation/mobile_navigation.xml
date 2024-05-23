@@ -62,12 +62,27 @@
         android:id="@+id/nav_inmueble"
         android:name="com.patob.inmobiliariaapp.ui.inmueble.InmuebleFragment"
         android:label="Detalle del Inmueble"
-        tools:layout="@layout/fragment_inmueble" />
+        tools:layout="@layout/fragment_inmueble" >
+        <action
+            android:id="@+id/action_nav_inmueble_to_nav_lista"
+            app:destination="@id/nav_lista" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_perfil"
         android:name="com.patob.inmobiliariaapp.ui.perfil.PerfilFragment"
         android:label="Mi Perfil"
         tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_pago"
+        android:name="com.patob.inmobiliariaapp.ui.pago.PagoFragment"
+        android:label="Detalle de Pagos"
+        tools:layout="@layout/fragment_pago" />
+    <fragment
+        android:id="@+id/nav_lista_pagos"
+        android:name="com.patob.inmobiliariaapp.ui.pago.ListaPagoFragment"
+        android:label="Inquilinos"
+        tools:layout="@layout/fragment_lista_pagos" />
 
 </navigation>

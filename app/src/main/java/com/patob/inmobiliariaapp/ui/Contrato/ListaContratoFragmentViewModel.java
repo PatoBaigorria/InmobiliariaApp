@@ -12,6 +12,7 @@ import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.request.ApiClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,18 +35,22 @@ public class ListaContratoFragmentViewModel extends AndroidViewModel {
     public void cargarContratos(){
         ApiClient.MisEndPoints mep = ApiClient.getEndPoints();
         String token = ApiClient.leerToken(getApplication().getApplicationContext());
-        Call<List<Inmueble>> call = mep.obtenerInmuebles(token);
-        call.enqueue(new Callback<List<Inmueble>>() {
+        Call<List<Contrato>> call = mep.obtenerContratos(token);
+        List<Inmueble> inmuebles = new ArrayList<>();
+        call.enqueue(new Callback<List<Contrato>>() {
             @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+            public void onResponse(Call<List<Contrato>> call, Response<List<Contrato>> response) {
                 if(response.isSuccessful()){
-                    mInmuebles.postValue(response.body());
+                    for(Contrato c : response.body()){
+                        inmuebles.add(c.getInmueble());
+                    }
+                    mInmuebles.postValue(inmuebles);
                 } else {
                     Log.d("salida", response.message());
                 }
             }
             @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
+            public void onFailure(Call<List<Contrato>> call, Throwable throwable) {
                 Log.d("salida", "Falla: " + throwable.getMessage());
             }
         });
