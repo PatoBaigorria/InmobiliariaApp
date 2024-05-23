@@ -1,23 +1,32 @@
 package com.patob.inmobiliariaapp.ui.inmueble;
 
+import android.app.Activity;
 import android.app.Application;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.RealPathUtil;
 import com.patob.inmobiliariaapp.model.Tipo;
 import com.patob.inmobiliariaapp.model.Uso;
 import com.patob.inmobiliariaapp.request.ApiClient;
-
+import java.io.File;
 import java.util.List;
-
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,11 +34,14 @@ import retrofit2.Response;
 public class InmuebleFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<Inmueble> mInmueble;
     private MutableLiveData<Boolean> mDisponible;
-    private MutableLiveData<String> mGuardar;
     private MutableLiveData<Boolean> mHabilitar;
 
-    private MutableLiveData<List<Tipo>> mTipo;
-    private MutableLiveData<List<Uso>> mUso;
+    private MutableLiveData<List<Tipo>> mListaTipo;
+    private MutableLiveData<List<Uso>> mListaUso;
+    private MutableLiveData<Boolean> mTextos;
+    private MutableLiveData<Tipo> mTipo;
+    private MutableLiveData<Uso> mUso;
+    private MutableLiveData<Uri> mUri;
 
     public InmuebleFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -49,11 +61,11 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
         return mDisponible;
     }
 
-    public LiveData<String> getMGuardar() {
-        if (mGuardar == null) {
-            mGuardar = new MutableLiveData<>();
+    public LiveData<Boolean> getMTextos() {
+        if (mTextos == null) {
+            mTextos = new MutableLiveData<>();
         }
-        return mGuardar;
+        return mTextos;
     }
 
     public LiveData<Boolean> getMHabilitar() {
@@ -63,30 +75,106 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
         return mHabilitar;
     }
 
-    public LiveData<List<Tipo>> getMTipo() {
+    public LiveData<List<Tipo>> getMListaTipo() {
+        if (mListaTipo == null) {
+            mListaTipo = new MutableLiveData<>();
+        }
+        return mListaTipo;
+    }
+
+    public LiveData<List<Uso>> getMListaUso() {
+        if (mListaUso == null) {
+            mListaUso = new MutableLiveData<>();
+        }
+        return mListaUso;
+    }
+
+    public LiveData<Tipo> getMTipo() {
         if (mTipo == null) {
             mTipo = new MutableLiveData<>();
         }
         return mTipo;
     }
 
-    public LiveData<List<Uso>> getMUso() {
+    public LiveData<Uso> getMUso() {
         if (mUso == null) {
             mUso = new MutableLiveData<>();
         }
         return mUso;
     }
 
+    public LiveData<Uri> getMUri() {
+        if (mUri == null) {
+            mUri = new MutableLiveData<>();
+        }
+        return mUri;
+    }
+
+    private void cargarTipos() {
+        String token = ApiClient.leerToken(getApplication());
+        ApiClient.MisEndPoints api = ApiClient.getEndPoints();
+        Call<List<Tipo>> call = api.obtenerTipos(token);
+        call.enqueue(new Callback<List<Tipo>>() {
+            @Override
+            public void onResponse(Call<List<Tipo>> call, Response<List<Tipo>> response) {
+                if (response.isSuccessful()) {
+                    mListaTipo.setValue(response.body());
+                } else {
+                    Toast.makeText(getApplication(), "Falla en la obtención de los tipos de inmueble", Toast.LENGTH_LONG).show();
+                    Log.d("salida", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tipo>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Falla en la obtención de los tipos de inmueble", Toast.LENGTH_LONG).show();
+                Log.d("salida", t.getMessage());
+            }
+        });
+    }
+
+    private void cargarUsos() {
+        String token = ApiClient.leerToken(getApplication());
+        ApiClient.MisEndPoints api = ApiClient.getEndPoints();
+        Call<List<Uso>> call = api.obtenerUsos(token);
+        call.enqueue(new Callback<List<Uso>>() {
+            @Override
+            public void onResponse(Call<List<Uso>> call, Response<List<Uso>> response) {
+                if (response.isSuccessful()) {
+                    mListaUso.setValue(response.body());
+                } else {
+                    Toast.makeText(getApplication(), "Falla en la obtención de los usos de inmueble", Toast.LENGTH_LONG).show();
+                    Log.d("salida", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Uso>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Falla en la obtención de los usos de inmueble", Toast.LENGTH_LONG).show();
+                Log.d("salida", t.getMessage());
+            }
+        });
+    }
+
     public void cargarInmueble(Bundle arguments) {
         if (arguments != null) {
             Inmueble inmueble = (Inmueble) arguments.getSerializable("inmueble");
-            if (inmueble != null) {
-                mInmueble.setValue(inmueble);
-            }
+            mTipo.setValue(inmueble.getTipo());
+            mUso.setValue(inmueble.getUso());
+            mHabilitar.setValue(false);
+            mTextos.setValue(false);
+            mInmueble.setValue(inmueble);
+        } else {
+            cargarTipos();
+            cargarUsos();
+            mHabilitar.setValue(true);
+            mTextos.setValue(true);
+            mInmueble.setValue(new Inmueble());
         }
     }
 
     public void cambiarDisponibilidad(boolean disponible, int id) {
+        Log.d("salida", String.valueOf(disponible));
         String token = ApiClient.leerToken(getApplication());
         if (token != null) {
             ApiClient.MisEndPoints api = ApiClient.getEndPoints();
@@ -115,165 +203,54 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
         }
     }
 
-    public Tipo obtenerTipo(int id) {
-        final Tipo[] tipo = new Tipo[1];
-        String token = ApiClient.leerToken(getApplication());
-        if (token != null) {
-            ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-            Call<Tipo> call = api.obtenerTipo(token, id);
-            call.enqueue(new Callback<Tipo>() {
-                @Override
-                public void onResponse(Call<Tipo> call, Response<Tipo> response) {
-                    if (response.isSuccessful()) {
-                        tipo[0] = response.body();
-                    } else {
-                        Toast.makeText(getApplication(), "Falla en la recuperación del tipo de inmueble", Toast.LENGTH_LONG).show();
-                        Log.d("salida", response.message());
-                        tipo[0] = null;
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Tipo> call, Throwable throwable) {
-                    Log.d("salida", "Falla: " + throwable.getMessage());
-                    tipo[0] = null;
-                }
-            });
-        }
-        return tipo[0];
-    }
-
-    private Uso obtenerUso(int id) {
-        final Uso[] uso = new Uso[1];
-        String token = ApiClient.leerToken(getApplication());
-        if (token != null) {
-            ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-            Call<Uso> call = api.obtenerUso(token, id);
-            call.enqueue(new Callback<Uso>() {
-                @Override
-                public void onResponse(Call<Uso> call, Response<Uso> response) {
-                    if (response.isSuccessful()) {
-                        uso[0] = response.body();
-                    } else {
-                        Toast.makeText(getApplication(), "Falla en la recuperación del uso de inmueble", Toast.LENGTH_LONG).show();
-                        uso[0] = null;
-                        Log.d("salida", response.message());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Uso> call, Throwable throwable) {
-                    uso[0] = null;
-                    Log.d("salida", "Falla: " + throwable.getMessage());
-                }
-            });
-        }
-        return uso[0];
-    }
-
-    public void agregarInmueble(String boton, Inmueble inmueble, String ambientes, String direccion, String precio, Spinner spinnerT, Spinner spinnerU) {
-        if (boton.equals("Agregrar inmueble")) {
-            mGuardar.setValue("Guardar inmueble");
-            mHabilitar.setValue(true);
-            spinnerT.setEnabled(true);
-            ArrayAdapter<Tipo> tipoAdapter = new ArrayAdapter<>(spinnerT.getContext(), android.R.layout.simple_spinner_item);
-            spinnerT.setAdapter(tipoAdapter);
-            String token = ApiClient.leerToken(getApplication());
-            if (token != null) {
-                ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-                Call<List<Tipo>> call = api.obtenerTipos(token);
-                call.enqueue(new Callback<List<Tipo>>() {
-                    @Override
-                    public void onResponse(Call<List<Tipo>> call, Response<List<Tipo>> response) {
-                        if (response.isSuccessful()) {
-                            response.body().forEach(tipo -> {
-                                tipoAdapter.add(tipo);
-                                spinnerT.setSelection(tipoAdapter.getPosition(tipo));
-                            });
-                            spinnerT.setSelection(0);
-                        } else {
-                            Toast.makeText(getApplication(), "Falla en el dado de alta del inmueble", Toast.LENGTH_LONG).show();
-                            Log.d("salida", response.message());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Tipo>> call, Throwable throwable) {
-                        Log.d("salida", "Falla: " + throwable.getMessage());
-                    }
-                });
+    public void cargarFoto(ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            Uri selectedImageUri = result.getData().getData();
+            if (selectedImageUri != null) {
+                mUri.setValue(selectedImageUri);
             }
-            spinnerU.setEnabled(true);
-            ArrayAdapter<Uso> usoAdapter = new ArrayAdapter<>(spinnerU.getContext(), android.R.layout.simple_spinner_item);
-            spinnerU.setAdapter(usoAdapter);
-            ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-            Call<List<Uso>> call = api.obtenerUsos(token);
-            call.enqueue(new Callback<List<Uso>>() {
-                @Override
-                public void onResponse(Call<List<Uso>> call, Response<List<Uso>> response) {
-                    if (response.isSuccessful()) {
-                        response.body().forEach(uso -> {
-                            usoAdapter.add(uso);
-                            spinnerU.setSelection(usoAdapter.getPosition(uso));
-                        });
-                        spinnerU.setSelection(0);
-                    } else {
-                        Toast.makeText(getApplication(), "Falla en el dado de alta del inmueble", Toast.LENGTH_LONG).show();
-                        Log.d("salida", response.message());
-                    }
-                }
-                @Override
-                public void onFailure(Call<List<Uso>> call, Throwable throwable) {
-                    Log.d("salida", "Falla: " + throwable.getMessage());
-                }
-            });
         } else {
-            if (ambientes.isEmpty() || direccion.isEmpty() || precio.isEmpty()) {
-                Toast.makeText(getApplication(), "Debe ingresar todos los datos antes de guardar el inmueble", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Debe elegirse una imagen antes de dar de guardar el inmueble", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void agregarInmueble(Inmueble inmueble, String ambientes, String direccion, String precio, Uri photoUri, View view) {
+        if (ambientes.isEmpty() || direccion.isEmpty() || precio.isEmpty()) {
+            Toast.makeText(getApplication(), "Debe ingresar todos los datos antes de guardar el inmueble", Toast.LENGTH_LONG).show();
+        } else if (photoUri == null) {
+            Toast.makeText(getApplication(), "Debe elegirse una imagen antes de dar de guardar el inmueble", Toast.LENGTH_LONG).show();
+        } else {
+            String rutaArchivo = RealPathUtil.getRealPath(getApplication(), photoUri);
+            File imagen = new File(rutaArchivo);
+            String[] parts = imagen.getName().split("\\.");
+            String extension2 = parts[1];
+            if (!extension2.equals("jpg") && !extension2.equals("png")) {
+                Toast.makeText(getApplication(), "La imagen seleccionada debe tener una extensión .jpg o .png", Toast.LENGTH_LONG).show();
             } else {
-                mGuardar.setValue("Agregrar inmueble");
-                mHabilitar.setValue(false);
                 String token = ApiClient.leerToken(getApplication());
                 if (token != null) {
                     ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-                    inmueble.setAmbientes(Integer.parseInt(ambientes));
-                    inmueble.setDireccion(direccion);
-                    inmueble.setPrecio(Double.valueOf(precio));
-                    Call<Inmueble> call = api.agregarInmueble(token, inmueble);
+                    // Convertir campos a RequestBody
+                    RequestBody tipoId = RequestBody.create(MediaType.parse("application/json"), String.valueOf(inmueble.getTipoId()));
+                    RequestBody usoId = RequestBody.create(MediaType.parse("application/json"), String.valueOf(inmueble.getUsoId()));
+                    RequestBody direccionBody = RequestBody.create(MediaType.parse("application/json"), direccion);
+                    RequestBody ambientesBody = RequestBody.create(MediaType.parse("application/json"), ambientes);
+                    RequestBody precioBody = RequestBody.create(MediaType.parse("application/json"), precio);
+                    RequestBody estado = RequestBody.create(MediaType.parse("application/json"), String.valueOf(inmueble.isEstado()));
+                    // Crear MultipartBody.Part para la imagen
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imagen);
+                    MultipartBody.Part imagenPart = MultipartBody.Part.createFormData("imagen", imagen.getName(), requestFile);
+                    // Realizar la llamada a la API
+                    Call<Inmueble> call = api.agregarInmueble(token, tipoId, usoId, direccionBody, ambientesBody, precioBody, estado, imagenPart);
                     call.enqueue(new Callback<Inmueble>() {
                         @Override
                         public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                             if (response.isSuccessful()) {
-                                inmueble.setId(9);
                                 Toast.makeText(getApplication(), "Inmueble dado de alta con exito", Toast.LENGTH_LONG).show();
+                                NavController navController = Navigation.findNavController(view);
+                                navController.navigate(R.id.action_nav_inmueble_to_nav_lista);
                             } else {
                                 Toast.makeText(getApplication(), "Falla en el dado de alta del inmueble", Toast.LENGTH_LONG).show();
-                                Log.d("salida", response.message());
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Inmueble> call, Throwable throwable) {
-                            Log.d("salida", "Falla: " + throwable.getMessage());
-                        }
-                    });
-                    inmueble.setId(9);
-                    Log.d("inmueble", inmueble.getId()+"");
-                    Log.d("inmueble", inmueble.getAmbientes()+"");
-                    Log.d("inmueble", inmueble.getDireccion());
-                    Log.d("inmueble", inmueble.getPrecio()+"");
-                    Log.d("inmueble", inmueble.getTipoId()+"");
-                    Log.d("inmueble", inmueble.getUsoId()+"");
-                    Call<Inmueble> inmuebleCall = api.obtenerInmueble(token, inmueble.getId());
-                    inmuebleCall.enqueue(new Callback<Inmueble>() {
-                        @Override
-                        public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                            if (response.isSuccessful()) {
-                                response.body().setTipo(obtenerTipo(response.body().getTipoId()));
-                                response.body().setUso(obtenerUso(response.body().getUsoId()));
-                                mInmueble.postValue(response.body());
-                            } else {
-                                Toast.makeText(getApplication(), "Falla en la obtención del inmueble", Toast.LENGTH_LONG).show();
                                 Log.d("salida", response.message());
                             }
                         }

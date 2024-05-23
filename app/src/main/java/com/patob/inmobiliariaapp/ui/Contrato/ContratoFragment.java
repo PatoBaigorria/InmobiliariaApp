@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.patob.inmobiliariaapp.databinding.FragmentContratoBinding;
 import com.patob.inmobiliariaapp.model.Contrato;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;

@@ -1,11 +1,11 @@
 package com.patob.inmobiliariaapp;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
-import java.io.File;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import com.patob.inmobiliariaapp.request.ApiClient;
@@ -23,7 +23,6 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
     public void logueo(String usuario, String clave) {
         ApiClient.MisEndPoints api = ApiClient.getEndPoints();
-
         Call<String> call = api.login(usuario, clave);
         call.enqueue(new Callback<String>() {
             @Override
@@ -32,7 +31,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                     String token = response.body();
                     guardarToken("Bearer " + token);
                     Log.d("salida", "Inicio de sesión exitoso");
-                    iniciarMenuActivity();
+                    iniciarMainActivity();
                 } else {
                     Toast.makeText(getApplication(), "Email o contraseña incorrecta", Toast.LENGTH_LONG).show();
                 }
@@ -41,7 +40,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
                 Toast.makeText(getApplication(), "Falla en el inicio de sesión", Toast.LENGTH_LONG).show();
-                Log.d("salida", throwable.getMessage());
+                Log.d("Login", "Falla en el inicio de sesión: " + throwable.getMessage());
             }
         });
     }
@@ -49,10 +48,11 @@ public class LoginActivityViewModel extends AndroidViewModel {
     public void enviarEmail(String email){
         ApiClient.MisEndPoints api = ApiClient.getEndPoints();
         if(!email.isEmpty()){
-            Call<String> call = api.enviarEmail(email);
-            call.enqueue(new Callback<String>() {
+            Log.d("email", email);
+            Call<Void> call = api.enviarEmail(email);
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getApplication(), "Email enviado a su correo para recuperar la contraseña", Toast.LENGTH_LONG).show();
                     } else {
@@ -61,21 +61,21 @@ public class LoginActivityViewModel extends AndroidViewModel {
                     }
                 }
                 @Override
-                public void onFailure(Call<String> call, Throwable throwable) {
+                public void onFailure(Call<Void> call, Throwable throwable) {
                     Toast.makeText(getApplication(), "Falla en la recuperación del email", Toast.LENGTH_LONG).show();
                     Log.d("salida", throwable.getMessage());
                 }
             });
         } else {
-            Toast.makeText(getApplication(), "Por favor ingrese un email", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Por favor ingrese un email para recuperar la contraseña", Toast.LENGTH_LONG).show();
         }
     }
 
     private void guardarToken(String token) {
-       ApiClient.guardarToken(token, getApplication());
+        ApiClient.guardarToken(token, getApplication());
     }
 
-    private void iniciarMenuActivity() {
+    private void iniciarMainActivity() {
         Intent intent = new Intent(getApplication(), MenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpiar la pila de actividades
         getApplication().startActivity(intent);

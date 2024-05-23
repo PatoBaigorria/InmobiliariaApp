@@ -1,11 +1,7 @@
 package com.patob.inmobiliariaapp;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-import android.widget.Toast;
 
+import android.os.Bundle;
+import android.view.Menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -24,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //verificarAutenticacion();
+
         DrawerLayout drawer = binding.menu;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -47,15 +43,5 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    private void verificarAutenticacion() {
-        SharedPreferences sharedPreferences = getSharedPreferences("auth_prefs", MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", null);
-        if (token == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 }

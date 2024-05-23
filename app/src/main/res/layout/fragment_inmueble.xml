@@ -8,225 +8,244 @@
     android:background="@color/teal_700"
     tools:context=".MenuActivity">
 
-    <ImageView
-        android:id="@+id/ivAvatarDetalle"
-        android:layout_width="408dp"
-        android:layout_height="119dp"
-        android:layout_marginTop="28dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnTipo"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tvInmueble"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Información del Inmueble"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
     <TextView
         android:id="@+id/tvCodigo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Código"
+        android:text="Código:"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInmueble" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvAmbientes"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
         android:text="Ambientes"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/tvDireccion"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvDireccion"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Dirección"
+        android:layout_marginTop="19dp"
+        android:text="Dirección:"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAmbientes" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCodigo" />
 
     <TextView
         android:id="@+id/tvPrecio"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Precio"
+        android:layout_marginTop="36dp"
+        android:text="Precio:"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDireccion"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmbientes"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tvUso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Uso"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPrecio" />
 
     <TextView
         android:id="@+id/tvTipo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Tipo"
+        android:layout_marginTop="31dp"
+        android:text="Tipo:"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnUso" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
+
+    <TextView
+        android:id="@+id/tvUso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Uso:"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
 
     <CheckBox
         android:id="@+id/cbDisponible"
-        android:layout_width="133dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
         android:text="Disponible"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAvatarDetalle"
+        app:layout_constraintStart_toEndOf="@+id/tvEstado"
+        app:layout_constraintTop_toBottomOf="@+id/spnUso"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Estado del inmueble:"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUso" />
+
+    <TextView
+        android:id="@+id/tvFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Foto del inmueble:"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbDisponible" />
 
     <Button
         android:id="@+id/btnAgregarInmueble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="120dp"
         android:text="Agregrar inmueble"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAgregarFoto"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbDisponible" />
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
 
     <EditText
         android:id="@+id/etCodigo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="338dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCodigo" />
-
-    <EditText
-        android:id="@+id/etAmbientes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="Ingrese la cantidad de ambientes del inmueble"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAmbientes" />
+        app:layout_constraintStart_toEndOf="@+id/tvCodigo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etDireccion"
-        android:layout_width="match_parent"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:enabled="false"
         android:hint="Ingrese la dirección del inmueble"
         android:inputType="text"
-        android:textColor="@color/black"
         android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccion" />
+        app:layout_constraintStart_toEndOf="@+id/tvDireccion"
+        app:layout_constraintTop_toBottomOf="@+id/etCodigo"
+        tools:ignore="VisualLintBounds" />
+
+    <EditText
+        android:id="@+id/etAmbientes"
+        android:layout_width="338dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Cantidad de ambientes del inmueble"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tvAmbientes"
+        app:layout_constraintTop_toBottomOf="@+id/etDireccion" />
 
     <EditText
         android:id="@+id/etPrecio"
-        android:layout_width="match_parent"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:enabled="false"
         android:hint="Ingrese el precio del inmueble"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
-
-    <Spinner
-        android:id="@+id/spnUso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:clickable="false"
-        android:textAlignment="center"
-        android:backgroundTint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUso" />
+        app:layout_constraintStart_toEndOf="@+id/tvPrecio"
+        app:layout_constraintTop_toBottomOf="@+id/etAmbientes" />
 
     <Spinner
         android:id="@+id/spnTipo"
-        android:layout_width="match_parent"
+        android:layout_width="338dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#FFFFFF"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvUso"
+        app:layout_constraintTop_toBottomOf="@+id/etPrecio" />
+
+    <Spinner
+        android:id="@+id/spnUso"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#FFFFFF"
         android:clickable="false"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
+        app:layout_constraintTop_toBottomOf="@+id/spnTipo" />
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/icon_inmuebles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvFoto"
+        app:layout_constraintTop_toBottomOf="@+id/tvFoto"
+        tools:ignore="VisualLintBounds"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnAgregarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="120dp"
+        android:text="Agregar foto "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAgregarInmueble"
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

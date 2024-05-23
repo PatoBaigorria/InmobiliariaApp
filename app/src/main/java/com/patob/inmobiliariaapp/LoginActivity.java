@@ -17,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pedirPermisos();
-        ApiClient.eliminarToken(getApplicationContext());
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         vm = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(LoginActivityViewModel.class);
@@ -25,10 +24,13 @@ public class LoginActivity extends AppCompatActivity {
             String email = binding.etEmail.getText().toString();
             String password = binding.etPassword.getText().toString();
             vm.logueo(email, password);
+            binding.etEmail.setText("");
+            binding.etPassword.setText("");
         });
         binding.btnCambiarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 vm.enviarEmail(binding.etEmail.getText().toString());
             }
         });
