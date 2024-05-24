@@ -12,6 +12,8 @@ import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.model.Pago;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PagoAdapter extends RecyclerView.Adapter<PagoAdapter.ViewHolderPepe> {
@@ -31,11 +33,14 @@ public class PagoAdapter extends RecyclerView.Adapter<PagoAdapter.ViewHolderPepe
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
         Pago pago = listaDePagos.get(position);
-        holder.tvCodigoPagoValue.setText(pago.getId());
-        holder.tvNumeroPagoValue.setText(pago.getNumeroDePago());
-        holder.tvCodigoContValue.setText(pago.getContratoId());
-        holder.tvImporteValue.setText(String.valueOf(pago.getMonto()));
-        holder.tvFechaPagoValue.setText(String.valueOf(pago.getFecha()));
+        holder.tvCodigoPagoValue.setText(String.valueOf(pago.getId()));
+        holder.tvNumeroPagoValue.setText(String.valueOf(pago.getNumeroDePago()));
+        holder.tvCodigoContValue.setText(String.valueOf(pago.getContratoId()));
+        holder.tvImporteValue.setText(Double.toString(pago.getMonto()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'del' yyyy");
+        LocalDate fechaLD = LocalDate.parse(pago.getFecha(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String fechaS = fechaLD.format(formatter);
+        holder.tvFechaPagoValue.setText(fechaS);
     }
 
     @Override

@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
+import com.patob.inmobiliariaapp.model.Pago;
 import com.patob.inmobiliariaapp.model.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -48,7 +49,7 @@ public class ApiClient {
         Call<Propietario> miPerfil(@Header("Authorization") String token);
 
         @PUT("Propietarios")
-        Call<Propietario> modificarUsuario(@Header("Authorization") String token, @Body Propietario propietario);
+        Call<String> modificarUsuario(@Header("Authorization") String token, @Body Propietario propietario);
 
         @FormUrlEncoded
         @PUT("Propietarios/cambiarviejacontraseña")
@@ -60,9 +61,6 @@ public class ApiClient {
 
         @GET("Inmuebles")
         Call<List<Inmueble>> obtenerInmuebles(@Header("Authorization") String token);
-
-        @GET("Inmuebles/{id}")
-        Call<Inmueble> obtenerInmueble(@Header("Authorization") String token, @Path("id") int id);
 
         @Multipart
         @POST("Inmuebles")
@@ -91,6 +89,9 @@ public class ApiClient {
 
         @GET("Usos")
         Call<List<Uso>> obtenerUsos(@Header("Authorization") String token);
+
+        @GET("Pagos/{id}")
+        Call<List<Pago>> obtenerPagos(@Header("Authorization") String token, @Path("id") int id);
 
 
     }

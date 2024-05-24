@@ -1,7 +1,12 @@
 package com.patob.inmobiliariaapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -12,6 +17,7 @@ import com.patob.inmobiliariaapp.databinding.ActivityMenuBinding;
 import com.google.android.material.navigation.NavigationView;
 
 public class MenuActivity extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuBinding binding;
 
@@ -30,12 +36,16 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
+        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String nombre = sharedPreferences.getString("nombre completo", "example");
+        String email = sharedPreferences.getString("email", "email@example.com");
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        // Actualizar el encabezado del NavigationView
+        View headerView = navigationView.getHeaderView(0);
+        TextView navHeaderTitle = headerView.findViewById(R.id.nav_header_title);
+        TextView navHeaderSubtitle = headerView.findViewById(R.id.nav_header_subtitle);
+        navHeaderTitle.setText(nombre);
+        navHeaderSubtitle.setText(email);
     }
 
     @Override
