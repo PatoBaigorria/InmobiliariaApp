@@ -20,14 +20,14 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         vm = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(LoginActivityViewModel.class);
-        binding.btnLogearse.setOnClickListener(view -> {
+        binding.btnLogin.setOnClickListener(view -> {
             String email = binding.etEmail.getText().toString();
             String password = binding.etPassword.getText().toString();
             vm.logueo(email, password);
             binding.etEmail.setText("");
             binding.etPassword.setText("");
         });
-        binding.btnCambiarPassword.setOnClickListener(new View.OnClickListener() {
+        binding.tvCambiarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

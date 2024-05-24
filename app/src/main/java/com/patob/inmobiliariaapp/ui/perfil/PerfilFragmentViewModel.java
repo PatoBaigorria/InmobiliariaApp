@@ -63,11 +63,9 @@ public class PerfilFragmentViewModel extends AndroidViewModel {
         if(boton.equals("Editar perfil")){
             mGuardar.setValue("Guardar perfil");
             mHabilitar.setValue(true);
-            mVisible.setValue(0);
         } else {
             mGuardar.setValue("Editar perfil");
             mHabilitar.setValue(false);
-            mVisible.setValue(8);
             String token = ApiClient.leerToken(getApplication());
             if (token != null) {
                 ApiClient.MisEndPoints api = ApiClient.getEndPoints();
@@ -81,6 +79,7 @@ public class PerfilFragmentViewModel extends AndroidViewModel {
                         } else {
                             Toast.makeText(getApplication(), "Falla en la actualización", Toast.LENGTH_LONG).show();
                             Log.d("salida", response.message());
+                            Log.d("salida", token);
                         }
                     }
                     @Override

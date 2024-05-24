@@ -28,12 +28,12 @@ public class InquilinoFragment extends Fragment {
 
             @Override
             public void onChanged(Inquilino inquilino) {
-                binding.tvCodigoInq.setText(String.valueOf(inquilino.getId()));
-                binding.tvNombreInq.setText(inquilino.getNombre());
-                binding.tvApellidoInq.setText(inquilino.getApellido());
-                binding.tvDniInq.setText(String.valueOf(inquilino.getDni()));
-                binding.tvEmailInq.setText((inquilino.getEmail()));
-                binding.tvTelefInq.setText((inquilino.getTelefono()));
+                binding.etCodigoInqDetalle.setText(String.valueOf(inquilino.getId()));
+                binding.etNombreInqDetalle.setText(inquilino.getNombre());
+                binding.etApellidoInqDetalle.setText(inquilino.getApellido());
+                binding.etDniInqDetalle.setText(String.valueOf(inquilino.getDni()));
+                binding.etEmailInqDetalle.setText((inquilino.getEmail()));
+                binding.etTelefInqDetalle.setText((inquilino.getTelefono()));
 
             }
         });

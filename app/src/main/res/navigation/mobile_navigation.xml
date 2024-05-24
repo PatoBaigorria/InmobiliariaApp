@@ -75,6 +75,12 @@
         tools:layout="@layout/fragment_perfil" />
 
     <fragment
+        android:id="@+id/nav_cambiar_password"
+        android:name="com.patob.inmobiliariaapp.ui.perfil.CambiarPasswordFragment"
+        android:label="Cambiar contraseña"
+        tools:layout="@layout/fragment_cambiar_password" />
+
+    <fragment
         android:id="@+id/nav_pago"
         android:name="com.patob.inmobiliariaapp.ui.pago.PagoFragment"
         android:label="Detalle de Pagos"
