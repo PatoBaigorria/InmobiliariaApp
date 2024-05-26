@@ -17,7 +17,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.request.ApiClient;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 
 public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHolderPepe> {
@@ -40,7 +43,13 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
         Inmueble inmueble = listaDeInmuebles.get(position);
-        holder.precio.setText(String.valueOf(inmueble.getPrecio()));
+
+        // Formatear el precio
+        double precio = inmueble.getPrecio();
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+        String precioFormateado = format.format(precio).replace("$", "$ ");
+        holder.precio.setText(precioFormateado);
+
         holder.direccion.setText(inmueble.getDireccion());
         // Corregir el formato de la URL de la imagen
         String imageUrl = ApiClient.URL+inmueble.getImagenUrl();
@@ -71,7 +80,8 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
     }
 
     public class ViewHolderPepe extends RecyclerView.ViewHolder {
-        TextView precio, direccion;
+        TextView direccion;
+        TextView precio;
         ImageView foto;
         Button btnVerMas;
 
