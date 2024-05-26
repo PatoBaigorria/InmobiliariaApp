@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.databinding.FragmentListaContratosBinding;
 import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
 import com.patob.inmobiliariaapp.ui.inmueble.InmuebleAdapter;
+import com.patob.inmobiliariaapp.ui.inmueble.SpaceItemDecoration;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class ListaContratoFragment extends Fragment {
                 ContratoAdapter contratoAdapter = new ContratoAdapter(inmueble, getLayoutInflater());
                 GridLayoutManager glm = new GridLayoutManager(container.getContext(), 1, GridLayoutManager.VERTICAL, false);
                 RecyclerView rv = binding.listaDeContratos;
+                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+                rv.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
                 rv.setLayoutManager(glm);
                 rv.setAdapter(contratoAdapter);
             }

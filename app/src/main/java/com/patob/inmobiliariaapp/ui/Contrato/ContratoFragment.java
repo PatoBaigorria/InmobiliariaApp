@@ -44,12 +44,18 @@ public class ContratoFragment extends Fragment {
                 // Formatear la fecha a "dd 'de' MMMM 'del' yyyy"
                 String fechaFin = finFecha.format(formatter);
 
-                binding.tvCodigoContratoDetalle.setText(String.valueOf(contrato.getId()));
-                binding.tvFechaIniDetalle.setText(fechaInicio);
-                binding.tvFechaFinDetalle.setText(fechaFin);
-                binding.tvMontoDetalle.setText(String.valueOf(contrato.getPrecio()));
-                binding.tvInquilinoDetalle.setText((contrato.getInquilino().toString()));
-                binding.tvInmuebleDetalle.setText((contrato.getInmueble().toString()));
+                binding.etCodigoContrato.setText(String.valueOf(contrato.getId()));
+                binding.etCodigoContrato.setFocusable(false);
+                binding.etFechaInic.setText(fechaInicio);
+                binding.etFechaInic.setFocusable(false);
+                binding.etFechaFin.setText(fechaFin);
+                binding.etFechaFin.setFocusable(false);
+                binding.etMontoAlq.setText(String.valueOf(contrato.getPrecio()));
+                binding.etMontoAlq.setFocusable(false);
+                binding.etInquilino.setText((contrato.getInquilino().toString()));
+                binding.etInquilino.setFocusable(false);
+                binding.etInmueble.setText((contrato.getInmueble().toString()));
+                binding.etInmueble.setFocusable(false);
 
             }
         });
