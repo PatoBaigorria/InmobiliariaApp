@@ -58,11 +58,16 @@ public class PerfilFragment extends Fragment {
         vm.getMHabilitar().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                binding.etDNI.setEnabled(aBoolean);
-                binding.etNombre.setEnabled(aBoolean);
-                binding.etApellido.setEnabled(aBoolean);
-                binding.etTelefono.setEnabled(aBoolean);
-                binding.etEmailPerfil.setEnabled(aBoolean);
+                binding.etDNI.setFocusableInTouchMode(aBoolean);
+                binding.etDNI.clearFocus();
+                binding.etNombre.setFocusableInTouchMode(aBoolean);
+                binding.etNombre.clearFocus();
+                binding.etApellido.setFocusableInTouchMode(aBoolean);
+                binding.etApellido.clearFocus();
+                binding.etTelefono.setFocusableInTouchMode(aBoolean);
+                binding.etTelefono.clearFocus();
+                binding.etEmailPerfil.setFocusableInTouchMode(aBoolean);
+                binding.etEmailPerfil.clearFocus();
             }
         });
         binding.btnEditar.setOnClickListener(new View.OnClickListener() {

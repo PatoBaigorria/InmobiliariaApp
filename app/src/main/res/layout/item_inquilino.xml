@@ -2,34 +2,39 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CardView3"
+    android:id="@+id/cvItemInquilino"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#000DFF"
+    app:cardBackgroundColor="@color/card_background_color"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     app:contentPadding="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cvItem"
+    <LinearLayout
+        android:id="@+id/itemInquilino"
         android:layout_width="match_parent"
-        android:layout_height="176dp"
-        android:background="@drawable/fondo">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ImageView para mostrar la imagen -->
+        <ImageView
+            android:id="@+id/ivImagenInmInq"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_inmuebles"
+            />
 
         <TextView
             android:id="@+id/tvDireccionInq"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:maxLines="3"
             android:text="Dirección"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/text_primary_color" />
 
 
         <Button
@@ -44,6 +49,5 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDireccionInq" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

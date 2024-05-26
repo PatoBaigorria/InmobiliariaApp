@@ -6,12 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.model.Contrato;
 import com.patob.inmobiliariaapp.model.Inmueble;
@@ -42,6 +46,9 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolderPepe holder, int position) {
         Inmueble inmueble = listaDeContratos.get(position);
         holder.direccion.setText(inmueble.getDireccion());
+        String imageUrl = ApiClient.URL + inmueble.getImagenUrl();
+        RequestOptions options = new RequestOptions().placeholder(R.drawable.icon_inmuebles).error(R.drawable.icon_logout);
+        Glide.with(li.getContext()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).apply(options).into(holder.foto);
 
         holder.btnVerMas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +81,14 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
 
     public class ViewHolderPepe extends RecyclerView.ViewHolder {
         TextView direccion;
+
+        ImageView foto;
         Button btnVerMas;
 
         public ViewHolderPepe(@NonNull View itemView) {
             super(itemView);
-            direccion = itemView.findViewById(R.id.tvDireccionCont);
+            direccion = itemView.findViewById(R.id.tvDireccionInm);
+            foto = itemView.findViewById(R.id.ivImagenInm);
             btnVerMas = itemView.findViewById(R.id.btnVerMas);
         }
     }
