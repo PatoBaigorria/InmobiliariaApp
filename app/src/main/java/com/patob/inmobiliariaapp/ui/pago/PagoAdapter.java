@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.model.Pago;
+import com.patob.inmobiliariaapp.ui.inmueble.Utils;
 
 
 import java.time.LocalDate;
@@ -36,7 +37,7 @@ public class PagoAdapter extends RecyclerView.Adapter<PagoAdapter.ViewHolderPepe
         holder.tvCodigoPagoValue.setText(String.valueOf(pago.getId()));
         holder.tvNumeroPagoValue.setText(String.valueOf(pago.getNumeroDePago()));
         holder.tvCodigoContValue.setText(String.valueOf(pago.getContratoId()));
-        holder.tvImporteValue.setText(Double.toString(pago.getMonto()));
+        holder.tvImporteValue.setText("$" + Utils.formatPrice(pago.getMonto()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'del' yyyy");
         LocalDate fechaLD = LocalDate.parse(pago.getFecha(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String fechaS = fechaLD.format(formatter);

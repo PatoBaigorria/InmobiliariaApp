@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,7 +50,7 @@ public class InmuebleFragment extends Fragment {
                 binding.etCodigo.setText(String.valueOf(inmueble.getId()));
                 binding.etAmbientes.setText(String.valueOf(inmueble.getAmbientes()));
                 binding.etDireccion.setText(inmueble.getDireccion());
-                binding.etPrecio.setText(String.valueOf(inmueble.getPrecio()));
+                binding.etPrecio.setText(("$" +Utils.formatPrice(inmueble.getPrecio())));
                 binding.cbDisponible.setChecked(inmueble.isEstado());
                 RequestOptions options = new RequestOptions()
                         .placeholder(R.drawable.icon_inmuebles) // Imagen de marcador de posición
@@ -64,6 +67,7 @@ public class InmuebleFragment extends Fragment {
             @Override
             public void onChanged(Boolean disponible) {
                 binding.cbDisponible.setChecked(disponible);
+                binding.cbDisponible.setText(disponible ? "Disponible" : "No disponible");
             }
         });
         vm.getMTipo().observe(getViewLifecycleOwner(), new Observer<Tipo>() {
@@ -112,9 +116,9 @@ public class InmuebleFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 binding.cbDisponible.setEnabled(!aBoolean);
-                binding.etAmbientes.setEnabled(aBoolean);
-                binding.etDireccion.setEnabled(aBoolean);
-                binding.etPrecio.setEnabled(aBoolean);
+                binding.etAmbientes.setFocusable(aBoolean);
+                binding.etDireccion.setFocusable(aBoolean);
+                binding.etPrecio.setFocusable(aBoolean);
                 binding.btnAgregarInmueble.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
                 binding.btnAgregarFoto.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
             }
@@ -165,6 +169,24 @@ public class InmuebleFragment extends Fragment {
             @Override
             public void onActivityResult(ActivityResult ar) {
                 vm.cargarFoto(ar);
+            }
+        });
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        binding.etPrecio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                vm.corregirPrecio(s, binding.etPrecio, this);
             }
         });
     }

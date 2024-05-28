@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import com.patob.inmobiliariaapp.R;
 import com.patob.inmobiliariaapp.databinding.FragmentContratoBinding;
 import com.patob.inmobiliariaapp.model.Contrato;
+import com.patob.inmobiliariaapp.ui.inmueble.Utils;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -50,7 +52,7 @@ public class ContratoFragment extends Fragment {
                 binding.etFechaInic.setFocusable(false);
                 binding.etFechaFin.setText(fechaFin);
                 binding.etFechaFin.setFocusable(false);
-                binding.etMontoAlq.setText(String.valueOf(contrato.getPrecio()));
+                binding.etMontoAlq.setText("$" + Utils.formatPrice(contrato.getPrecio()));
                 binding.etMontoAlq.setFocusable(false);
                 binding.etInquilino.setText((contrato.getInquilino().toString()));
                 binding.etInquilino.setFocusable(false);
