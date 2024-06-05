@@ -36,7 +36,7 @@ public class LeerMapa implements OnMapReadyCallback {
         map= googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.addMarker(new MarkerOptions().position(inmobiliria))
-                .setTitle("Inmobiliaria Baigorria-Diaz");
+                .setTitle("Inmobiliaria Baigorria");
         CameraPosition camUlp= new CameraPosition.Builder()
                 .target(inmobiliria)
                 .zoom(17)

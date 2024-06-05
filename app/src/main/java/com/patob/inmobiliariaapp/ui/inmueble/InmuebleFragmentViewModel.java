@@ -49,6 +49,7 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<Tipo> mTipo;
     private MutableLiveData<Uso> mUso;
     private MutableLiveData<Uri> mUri;
+    private MutableLiveData<Boolean> mNavegarInmuebles;
 
     public InmuebleFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -115,6 +116,13 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
             mUri = new MutableLiveData<>();
         }
         return mUri;
+    }
+
+    public LiveData<Boolean> getMNavegarInmuebles() {
+        if (mNavegarInmuebles == null) {
+            mNavegarInmuebles = new MutableLiveData<>();
+        }
+        return mNavegarInmuebles;
     }
 
     private void cargarTipos() {
@@ -223,7 +231,7 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
         }
     }
 
-    public void agregarInmueble(Inmueble inmueble, String ambientes, String direccion, String precio, Uri photoUri, View view) {
+    public void agregarInmueble(Inmueble inmueble, String ambientes, String direccion, String precio, Uri photoUri) {
         if (ambientes.isEmpty() || direccion.isEmpty() || precio.isEmpty()) {
             Toast.makeText(getApplication(), "Debe ingresar todos los datos antes de guardar el inmueble", Toast.LENGTH_LONG).show();
         } else if (photoUri == null) {
@@ -262,8 +270,8 @@ public class InmuebleFragmentViewModel extends AndroidViewModel {
                             public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                                 if (response.isSuccessful()) {
                                     Toast.makeText(getApplication(), "Inmueble dado de alta con exito", Toast.LENGTH_LONG).show();
-                                    NavController navController = Navigation.findNavController(view);
-                                    navController.navigate(R.id.action_nav_inmueble_to_nav_lista);
+                                    mNavegarInmuebles.setValue(true);
+
                                 } else {
                                     Toast.makeText(getApplication(), "Falla en el dado de alta del inmueble", Toast.LENGTH_LONG).show();
                                     Log.d("salida", response.message());

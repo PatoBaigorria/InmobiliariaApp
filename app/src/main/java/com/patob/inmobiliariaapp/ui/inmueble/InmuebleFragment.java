@@ -19,6 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -138,6 +141,16 @@ public class InmuebleFragment extends Fragment {
                 photoURI = uri;
             }
         });
+
+        vm.getMNavegarInmuebles().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+                    navController.navigate(R.id.nav_lista);
+                }
+            }
+        });
         binding.cbDisponible.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +169,7 @@ public class InmuebleFragment extends Fragment {
                 Inmueble inmueble = new Inmueble();
                 inmueble.setTipoId(binding.spnTipo.getSelectedItemPosition() + 1);
                 inmueble.setUsoId(binding.spnUso.getSelectedItemPosition() + 1);
-                vm.agregarInmueble(inmueble, binding.etAmbientes.getText().toString(), binding.etDireccion.getText().toString(), binding.etPrecio.getText().toString(), photoURI, binding.getRoot());
+                vm.agregarInmueble(inmueble, binding.etAmbientes.getText().toString(), binding.etDireccion.getText().toString(), binding.etPrecio.getText().toString(), photoURI);
             }
         });
         vm.cargarInmueble(getArguments());
